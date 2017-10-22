@@ -74,6 +74,10 @@ Vagrant.configure(2) do |config|
     if [ ! -e /var/log/php-fpm ]; then mkdir /var/log/php-fpm; fi
     if [ -e /etc/opt/remi/php71/php-fpm.d/www.conf ]; then rm -f /etc/opt/remi/php71/php-fpm.d/www.conf; fi
     ln -sf /vagrant/dev/php-fpm.conf /etc/opt/remi/php71/php-fpm.d/www.conf
+
+    echo "Init Database"
+    mysql -uroot -pvagrant -e 'create database if not exists Chat'
+
     echo "Start services"
     systemctl enable php71-php-fpm
     systemctl enable nginx
